@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+
+    <title>Knowledge Bowl</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1 *html="score"></h1>
+      <label for="group-name">Group Number</label>
+      <input
+        *model="groupNumber"
+        type="number"
+        name="group-name"
+        placeholder="Enter group number"
+      />
+      <button
+        *on:click="buzz()"
+        *bind:disabled="buzzed"
+        class="buzzer w-100"
+        *html="!buzzed ? `${buzzerIcon} BUZZ` : `Please wait ${seconds} seconds`"
+      ></button
+      ><br />
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+    <script src="https://unpkg.com/lucia"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

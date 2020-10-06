@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+
+    <title>Knowledge Bowl</title>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Actions</th>
+          </tr>
+        </head>
+        <!--  not functional currently -->
+        <tbody *join="entries">
+  
+        </tbody>
+      </table>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+    <script src="https://unpkg.com/lucia"></script>
+    <script src="/admin.js"></script>
+  </body>
+</html>
