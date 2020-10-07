@@ -57,3 +57,7 @@ function correct(teamName) {
 function deleteTeam(team) {
   delete scores[team]; 
 }
+
+window.onbeforeunload = () => {
+  return 'Are you sure you want to leave?';
+};
