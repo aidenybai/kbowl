@@ -77,6 +77,7 @@ function updateTimer() {
 
 async function startTimer(name) {
   if (timerLock) return;
+  socket.emit('client-score', { teamName: name, score: scores[`@@@${name}`] });
   timerLock = true;
   resetTimer();
   await delay(100);
