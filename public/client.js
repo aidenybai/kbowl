@@ -36,7 +36,7 @@ const app = Lucia.createApp(view);
 app.mount('#app');
 
 socket.on('server-score', (data) => {
-  if (parseInt(data.teamName.replace('@@@', '')) === parseInt(app.$view.teamName)) {
+  if (data.teamName === app.$view.teamName) {
     app.$view.score = `Score: ${data.score}`;
   }
 });

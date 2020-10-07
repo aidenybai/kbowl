@@ -17,9 +17,10 @@ const view = {
     buzzSound.play();
     const payload = `<tr>
       <td>${data.teamName}</td>
+      <td>${(new Date()).toLocaleTimeString()}</td>
       <td>
-        <button class="correct" onclick="correct('${data.teamName}'); this.disabled = true;"><i class="fas fa-check"></i> Correct</button> 
-        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${data.teamName}'))), 1); resetTimer(); this.disabled = true;"><i class="fas fa-times"></i> Wrong</button>
+        <button class="correct" onclick="correct('${data.teamName}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
+        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${data.teamName}'))), 1); resetTimer(); startTimer(entries[0]); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -35,6 +36,7 @@ socket.on('server-buzz', (data) => {
   if (!(`@@@${data.teamName}` in scores)) {
     scores[`@@@${data.teamName}`] = 0;
   }
+  if (entries.find(team => team.includes(data.teamName))) return;
   app.$view.add(data);
   startTimer(data.teamName);
   updateScores();
@@ -69,7 +71,8 @@ function deleteTeam(team) {
 }
 
 function updateTimer() {
-  document.querySelector('#timer').innerHTML = timer < 0 ? 'Waiting for entry...' : `Time: ${timer} s`;
+  document.querySelector('#timer').innerHTML =
+    timer < 0 ? 'Waiting for entries...' : `Time: ${timer} s`;
 }
 
 async function startTimer(name) {
@@ -82,14 +85,9 @@ async function startTimer(name) {
     timer--;
     updateTimer();
   }
-  entries.splice(entries.indexOf(entries.find((team) => team.includes(name))), 1);
+  timer = -1;
   timerLock = false;
   change();
-  if (entries.length !== 0) startTimer(entries[0]);
-  else {
-    timer = -1;
-    updateTimer();
-  }
 }
 
 function stopTimer() {
