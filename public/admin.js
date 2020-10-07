@@ -19,7 +19,7 @@ const view = {
       <td>${data.teamName}</td>
       <td>
         <button class="correct" onclick="correct('${data.teamName}'); this.disabled = true;"><i class="fas fa-check"></i> Correct</button> 
-        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${data.teamName}'))), 1); this.disabled = true;"><i class="fas fa-times"></i> Wrong</button>
+        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${data.teamName}'))), 1); resetTimer(); this.disabled = true;"><i class="fas fa-times"></i> Wrong</button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -75,26 +75,31 @@ function updateTimer() {
 async function startTimer(name) {
   if (timerLock) return;
   timerLock = true;
-  timer = 15;
-  updateTimer();
+  resetTimer();
   await delay(100);
   while (timer > 0) {
     await delay(1000);
     timer--;
     updateTimer();
   }
-  entries.splice(entries.indexOf(entries.find(team => team.includes(name))), 1);
+  entries.splice(entries.indexOf(entries.find((team) => team.includes(name))), 1);
   timerLock = false;
   change();
   if (entries.length !== 0) startTimer(entries[0]);
   else {
     timer = -1;
-    updateTimer() 
+    updateTimer();
   }
 }
 
 function stopTimer() {
   timer = 0;
+  updateTimer();
+}
+
+function resetTimer() {
+  if (entries.length === 0) return stopTimer();
+  timer = 15;
   updateTimer();
 }
 
