@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
     <link
       rel="stylesheet"
       href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
@@ -14,14 +14,14 @@
   </head>
   <body>
     <div id="app">
-      <h1 *html="score"></h1>
-      <label for="team-name">Team Name</label>
+      <h1 *html="score" class="text-center"></h1>
       <input
         *model="teamName"
-        class="w-50"
         type="text"
+        id="text"
         name="team-name"
         placeholder="Enter team name"
+        class="text-center"
       />
 
       <button
