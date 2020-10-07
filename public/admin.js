@@ -61,6 +61,7 @@ function correct(teamName) {
   socket.emit('client-score', { teamName, score: ++scores[`@@@${teamName}`] });
   updateScores();
   change();
+  stopTimer();
 }
 
 function deleteTeam(team) {
@@ -68,7 +69,7 @@ function deleteTeam(team) {
 }
 
 function updateTimer() {
-  document.querySelector('#timer').innerHTML = timer;
+  document.querySelector('#timer').innerHTML = timer < 0 ? 'Waiting for entry...' : timer;
 }
 
 async function startTimer(name) {
@@ -76,7 +77,7 @@ async function startTimer(name) {
   timerLock = true;
   timer = 15;
   updateTimer();
-  await delay(1000);
+  await delay(100);
   while (timer > 0) {
     await delay(1000);
     timer--;
@@ -86,10 +87,15 @@ async function startTimer(name) {
   timerLock = false;
   change();
   if (entries.length !== 0) startTimer(entries[0]);
+  else {
+    timer = -1;
+    updateTimer() 
+  }
 }
 
 function stopTimer() {
   timer = 0;
+  updateTimer();
 }
 
 window.onbeforeunload = () => {
