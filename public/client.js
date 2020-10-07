@@ -14,7 +14,10 @@ const view = {
     if (this.teamName === null || this.teamName.split(' ').join('') === '')
       return alert('Please enter a valid team name');
     this.teamName = this.teamName.trim();
-    const buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
+    let buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
+    if (Math.random() > 0.99) {
+      buzzSound = new Audio(`${window.location.origin}/ahh.wav`);
+    }
     buzzSound.play();
     socket.emit('client-buzz', { teamName: this.teamName });
 
@@ -33,7 +36,7 @@ const app = Lucia.createApp(view);
 app.mount('#app');
 
 socket.on('server-score', (data) => {
-  if (parseInt(data.teamName) === parseInt(app.$view.teamName)) {
+  if (parseInt(data.teamName.replace('@@@', '')) === parseInt(app.$view.teamName)) {
     app.$view.score = `Score: ${data.score}`;
   }
 });
