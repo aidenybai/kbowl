@@ -41,14 +41,18 @@ socket.on('server-buzz', (data) => {
     scores[`@@@${data.teamName}`] = 0;
   }
   if (entries.find((team) => team.includes(data.teamName))) return;
+
   app.$view.add(data);
-  startTimer(data.teamName);
+  if (entries.length <= 1) startTimer(data.teamName);
+
   updateScores();
 });
 
 function updateScores() {
   document.querySelector('#teams').innerHTML = '';
-  const sortedScores = Object.fromEntries(Object.entries({ ...scores }).sort(([, a], [, b]) => b - a));
+  const sortedScores = Object.fromEntries(
+    Object.entries({ ...scores }).sort(([, a], [, b]) => b - a)
+  );
   for (const team in sortedScores) {
     document.querySelector('#teams').innerHTML += `<tr>
       <td>${DOMPurify.sanitize(team.replace('@@@', ''))}</td>
@@ -85,7 +89,7 @@ async function startTimer(name) {
   socket.emit('client-score', { teamName: name, score: scores[`@@@${name}`] });
   timerLock = true;
   resetTimer();
-  await delay(100);
+  await delay(500);
   while (timer > 0) {
     await delay(1000);
     timer--;
