@@ -35,7 +35,7 @@ body {
 }
 
 .buzzer:hover {
-  background: #f53b51b2;
+  background: #f53b51d7;
   color: #fff !important; 
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 .correct:hover {
-  background: #f53b51b2;
+  background: #f53b51d7;
   color: #fff; 
 }
 

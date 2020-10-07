@@ -12,29 +12,30 @@
   </head>
   <body>
     <div id="app">
-      <button *on:click="entries = []"><i class="fas fa-file"></i> New Question</button>
+      <button *on:click="entries = []">New Question</button>
       <div hidden *join="entries"></div>
 
-      <details> 
-        <summary><i class="fas fa-users"></i> Leaderboard</summary> 
+      <details open> 
+        <summary>Leaderboard</summary> 
         <table>
           <thead>
             <tr>
-              <th>Group</th>
+              <th>Team</th>
               <th>Score</th>
+              <th>Actions</th>
             </tr>
           </head>
-          <tbody id="groups">
+          <tbody id="teams">
     
           </tbody>
         </table> 
       </details>
       <details open> 
-        <summary><i class="fas fa-table"></i> Entries</summary> 
+        <summary>Entries</summary> 
         <table>
           <thead>
             <tr>
-              <th>Group</th>
+              <th>Teams</th>
               <th>Actions</th>
             </tr>
           </head>
@@ -45,6 +46,7 @@
       </details>
     </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.1.1/purify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
     <script src="https://unpkg.com/lucia"></script>
     <script src="/admin.js"></script>

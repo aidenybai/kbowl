@@ -8,14 +8,15 @@ const view = {
   buzzed: false,
   buzzerIcon: '<i class="fas fa-bell"></i>',
   score: `Score: 0`,
-  groupNumber: null,
+  teamName: null,
   seconds: 3,
   async buzz() {
-    if (isNaN(this.groupNumber) || this.groupNumber === null)
-      return alert('Please enter a valid group number');
+    if (this.teamName === null || this.teamName.split(' ').join('') === '')
+      return alert('Please enter a valid team name');
+    this.teamName = this.teamName.trim();
     const buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
     buzzSound.play();
-    socket.emit('client-buzz', { groupNumber: this.groupNumber });
+    socket.emit('client-buzz', { teamName: this.teamName });
 
     this.buzzed = true;
     this.seconds = 3;
@@ -32,7 +33,7 @@ const app = Lucia.createApp(view);
 app.mount('#app');
 
 socket.on('server-score', (data) => {
-  if (parseInt(data.groupNumber) === parseInt(app.$view.groupNumber)) {
+  if (parseInt(data.teamName) === parseInt(app.$view.teamName)) {
     app.$view.score = `Score: ${data.score}`;
   }
 });
