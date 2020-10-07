@@ -22,9 +22,11 @@ const view = {
         <button class="correct" onclick="correct('${
           data.teamName
         }'); this.disabled = true;"><i class="fas fa-check"></i></button> 
-        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${
+        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('${
           data.teamName
-        }'))), 1); resetTimer(); startTimer(entries[0]); this.disabled = true;"><i class="fas fa-times"></i></button>
+        }'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('${
+          data.teamName
+        }'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -91,6 +93,10 @@ async function startTimer(name) {
   resetTimer();
   await delay(500);
   while (timer > 0) {
+    if (entries.length === 0) {
+      timerLock = false;
+      return stopTimer();
+    }
     await delay(1000);
     timer--;
     updateTimer();
@@ -101,7 +107,7 @@ async function startTimer(name) {
 }
 
 function stopTimer() {
-  timer = 0;
+  timer = -1;
   updateTimer();
 }
 
