@@ -38,7 +38,7 @@ socket.on('server-buzz', (data) => {
   }
   if (entries.find(team => team.includes(data.teamName))) return;
   app.$view.add(data);
-  startTimer(data.teamName);
+  if (entries.length === 0) startTimer(data.teamName);
   updateScores();
 });
 
