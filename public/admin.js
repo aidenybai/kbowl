@@ -17,10 +17,14 @@ const view = {
     buzzSound.play();
     const payload = `<tr>
       <td>${data.teamName}</td>
-      <td>${(new Date()).toLocaleTimeString()}</td>
+      <td>${new Date().toLocaleTimeString()}</td>
       <td>
-        <button class="correct" onclick="correct('${data.teamName}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
-        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${data.teamName}'))), 1); resetTimer(); startTimer(entries[0]); this.disabled = true;"><i class="fas fa-times"></i></button>
+        <button class="correct" onclick="correct('${
+          data.teamName
+        }'); this.disabled = true;"><i class="fas fa-check"></i></button> 
+        <button onclick="this.parentNode.parentNode.remove(); entries.splice(entries.indexOf(entries.find(team => team.includes('${
+          data.teamName
+        }'))), 1); resetTimer(); startTimer(entries[0]); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -36,7 +40,7 @@ socket.on('server-buzz', (data) => {
   if (!(`@@@${data.teamName}` in scores)) {
     scores[`@@@${data.teamName}`] = 0;
   }
-  if (entries.find(team => team.includes(data.teamName))) return;
+  if (entries.find((team) => team.includes(data.teamName))) return;
   app.$view.add(data);
   startTimer(data.teamName);
   updateScores();
@@ -44,7 +48,8 @@ socket.on('server-buzz', (data) => {
 
 function updateScores() {
   document.querySelector('#teams').innerHTML = '';
-  for (const team in scores) {
+  const sortedScores = Object.fromEntries(Object.entries({ ...scores }).sort(([, a], [, b]) => b - a));
+  for (const team in sortedScores) {
     document.querySelector('#teams').innerHTML += `<tr>
       <td>${DOMPurify.sanitize(team.replace('@@@', ''))}</td>
       <td>${DOMPurify.sanitize(scores[team]) || 0}</td>
