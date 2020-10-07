@@ -13,6 +13,8 @@ const view = {
   async buzz() {
     if (this.teamName === null || this.teamName.split(' ').join('') === '')
       return alert('Please enter a valid team name');
+    if (this.teamName.length > 25)
+      return alert('Team length too long! Max 25');
     this.teamName = this.teamName.trim();
     let buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
     if (Math.random() > 0.99) {
