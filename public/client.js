@@ -11,11 +11,11 @@ const view = {
   groupNumber: null,
   seconds: 3,
   async buzz() {
+    if (isNaN(this.groupNumber) || this.groupNumber === null)
+      return alert('Please enter a valid group number');
     const buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
     buzzSound.play();
     socket.emit('client-buzz', { groupNumber: this.groupNumber });
-    console.log(this.groupNumber);
-    if (isNaN(this.groupNumber) || this.groupNumber === null) return alert('Please enter a valid group name');
 
     this.buzzed = true;
     this.seconds = 3;
@@ -28,4 +28,11 @@ const view = {
   },
 };
 
-const app = Lucia.createApp(view).mount('#app');
+const app = Lucia.createApp(view);
+app.mount('#app');
+
+socket.on('server-score', (data) => {
+  if (parseInt(data.groupNumber) === parseInt(app.$view.groupNumber)) {
+    app.$view.score = `Score: ${data.score}`;
+  }
+});

@@ -12,21 +12,35 @@
   </head>
   <body>
     <div id="app">
-      <h1 *html="score"></h1>
-      <label for="group-name">Group Number</label>
-      <input
-        *model="groupNumber"
-        type="number"
-        name="group-name"
-        placeholder="Enter group number"
-      />
+        <h1 *html="score"></h1>
+        <label for="group-number">Group Number</label>
+        <input
+          *model="groupNumber"
+          class="w-50"
+          type="number"
+          name="group-number"
+          list="group-numbers"
+          placeholder="Enter group number"
+        />
+        <datalist id="group-numbers">
+          <option value="1"></option>
+          <option value="2"></option>
+          <option value="3"></option>
+          <option value="4"></option>
+          <option value="5"></option>
+          <option value="6"></option>
+          <option value="7"></option>
+          <option value="8"></option>
+          <option value="9"></option>
+          <option value="10"></option>
+        </datalist>
+
       <button
         *on:click="buzz()"
         *bind:disabled="buzzed"
         class="buzzer w-100"
         *html="!buzzed ? `${buzzerIcon} BUZZ` : `Please wait ${seconds} seconds`"
-      ></button
-      ><br />
+      ></button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>

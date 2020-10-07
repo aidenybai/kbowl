@@ -31,14 +31,28 @@ body {
   height: 15rem;
   font-size: 300%;
   background: #F53B50;
-  color: #fff;
+  color: #fff !important;
 }
 
 .buzzer:hover {
+  background: #f53b51b2;
+  color: #fff !important; 
+}
+
+.correct {
+  background: #F53B50;
+  color: #fff;
+}
+
+.correct:hover {
   background: #f53b51b2;
   color: #fff; 
 }
 
 .w-100 {
   width: 100%;
+}
+
+.w-50 {
+  width: 50%;
 }

@@ -12,18 +12,37 @@
   </head>
   <body>
     <div id="app">
-      <table>
-        <thead>
-          <tr>
-            <th>Group</th>
-            <th>Actions</th>
-          </tr>
-        </head>
-        <!--  not functional currently -->
-        <tbody *join="entries">
-  
-        </tbody>
-      </table>
+      <button *on:click="entries = []"><i class="fas fa-file"></i> New Question</button>
+      <div hidden *join="entries"></div>
+
+      <details> 
+        <summary><i class="fas fa-users"></i> Leaderboard</summary> 
+        <table>
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Score</th>
+            </tr>
+          </head>
+          <tbody id="groups">
+    
+          </tbody>
+        </table> 
+      </details>
+      <details open> 
+        <summary><i class="fas fa-table"></i> Entries</summary> 
+        <table>
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Actions</th>
+            </tr>
+          </head>
+          <tbody id="entries">
+    
+          </tbody>
+        </table>
+      </details>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>

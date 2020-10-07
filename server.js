@@ -16,6 +16,9 @@ io.on('connection', (socket) => {
   socket.on('client-buzz', (data) => {
     io.emit('server-buzz', data);
   });
+  socket.on('client-score', (data) => {
+    io.emit('server-score', data);
+  });
 });
 
 app.set('view engine', 'ejs');
