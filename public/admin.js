@@ -69,7 +69,7 @@ function deleteTeam(team) {
 }
 
 function updateTimer() {
-  document.querySelector('#timer').innerHTML = timer < 0 ? 'Waiting for entry...' : timer;
+  document.querySelector('#timer').innerHTML = timer < 0 ? 'Waiting for entry...' : `Time: ${timer} s`;
 }
 
 async function startTimer(name) {

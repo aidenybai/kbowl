@@ -12,15 +12,14 @@
   </head>
   <body>
     <div id="app">
-        <h1 *html="score"></h1>
-        <label for="team-name">Team Name</label>
-        <input
-          *model="teamName"
-          class="w-50"
-          type="text"
-          name="team-name"
-          placeholder="Enter team name"
-        />
+      <label for="team-name">Team Name</label>
+      <input
+        *model="teamName"
+        class="w-50"
+        type="text"
+        name="team-name"
+        placeholder="Enter team name"
+      />
 
       <button
         *on:click="buzz()"
