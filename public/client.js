@@ -16,7 +16,7 @@ const view = {
     if (this.teamName.length > 25)
       return alert('Team length too long! Max 25');
     this.teamName = this.teamName.trim();
-    let buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
+    let buzzSound = new Audio(`${window.location.origin}/ding.wav`);
     if (Math.random() > 0.99) {
       buzzSound = new Audio(`${window.location.origin}/ahh.wav`);
     }

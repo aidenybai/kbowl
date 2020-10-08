@@ -10,7 +10,7 @@ let timerLock = false;
 
 const view = {
   add(data) {
-    let buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
+    let buzzSound = new Audio(`${window.location.origin}/ding.wav`);
     if (Math.random() > 0.99) {
       buzzSound = new Audio(`${window.location.origin}/ahh.wav`);
     }
@@ -101,6 +101,8 @@ async function startTimer(name) {
     timer--;
     updateTimer();
   }
+  let buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
+  buzzSound.play();
   timer = -1;
   timerLock = false;
   change();
