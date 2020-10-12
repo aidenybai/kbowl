@@ -12,8 +12,8 @@ body {
   --text-main: #363636;
   --text-bright: #000;
   --text-muted: #70777f;
-  --links: rgba(255, 0, 0, 0.5);;
-  --focus: rgba(255, 0, 0, 0.5);;
+  --links: rgba(255, 0, 0, 0.5);
+  --focus: rgba(255, 0, 0, 0.5);
   --border: #dbdbdb;
   --code: #000;
   --animation-duration: 0.1s;
@@ -23,30 +23,73 @@ body {
   --form-placeholder: #949494;
   --form-text: #000;
   --variable: rgba(255, 0, 0, 0.5);
-  --highlight: rgba(255, 0, 0, 0.5);;
+  --highlight: rgba(255, 0, 0, 0.5);
   --select-arrow: svg-load('./assets/select-arrow.svg', fill: #161f27);
+}
+
+nav {
+  background: #efefef;
+  padding: 6px;
+  text-align: center;
+  font-size: 1.15em;
+}
+nav > a {
+  padding: 1rem;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li:hover ul {
+  display: block;
+}
+nav ul li a {
+  display: block;
+  padding: 0 1rem;
+  text-decoration: none;
+}
+nav ul li ul {
+  display: none;
+  position: absolute;
+  z-index: 500;
+  padding: 0.5em 1.15em;
+  background: #efefef;
+}
+nav ul li ul li {
+  display: block;
+  text-align: left;
+  float: none;
+  padding: 0.3em 0.2em;
+}
+nav ul li ul a {
+  display: inline;
+  padding: 0;
+  font-size: 0.9em;
 }
 
 .buzzer {
   height: 15rem;
   font-size: 300%;
-  background: #F53B50;
+  background: #f53b50;
   color: #fff !important;
 }
 
 .buzzer:hover {
   background: #f53b51d7;
-  color: #fff !important; 
+  color: #fff !important;
 }
 
 .correct {
-  background: #F53B50;
+  background: #f53b50;
   color: #fff;
 }
 
 .correct:hover {
   background: #f53b51d7;
-  color: #fff; 
+  color: #fff;
 }
 
 .w-100 {
@@ -55,7 +98,7 @@ body {
 
 input {
   width: 97.5%;
-  text-align: center
+  text-align: center;
 }
 
 .text-center {
