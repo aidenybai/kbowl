@@ -24,7 +24,7 @@
         name="team-name"
         placeholder="Enter team name"
         class="text-center"
-        onkeypress="return /[a-z]/i.test(event.key)"
+        onkeypress="return /^[a-z\d\-_\s]+$/i.test(event.key)"
       />
 
       <button
