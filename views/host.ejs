@@ -10,10 +10,11 @@
     />
     <link rel="stylesheet" href="/styles.css" />
 
-    <title>Knowledge Bowl</title>
+    <title>Host | Room Code: <%= room %></title>
   </head>
   <body>
     <div id="app">
+      <input value="<%= room %>" id="room" disabled>
       <center><h1 id="timer">Waiting for entries...</h1></center>
       <details open> 
         <summary>Leaderboard</summary> 
@@ -50,6 +51,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.1.1/purify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
     <script src="https://unpkg.com/lucia"></script>
-    <script src="/admin.js"></script>
+    <script src="/host.js"></script>
   </body>
 </html>

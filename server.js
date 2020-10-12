@@ -28,12 +28,16 @@ app.use(express.static(`${__dirname}/public`));
 app.use(compression());
 app.use(morgan('dev'));
 
-app.get('/', (_req, res) => {
+app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/admin', (_req, res) => {
-  res.render('admin');
+app.get('/:room', (req, res) => {
+  res.render('client', { room: req.params.room });
+});
+
+app.get('/:room/host', (req, res) => {
+  res.render('host', { room: req.params.room });
 });
 
 server.listen(process.env.PORT, () => {

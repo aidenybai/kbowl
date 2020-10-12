@@ -7,13 +7,11 @@ const scores = {};
 let entries = [];
 let timer = 15;
 let timerLock = false;
+let room = document.getElementById('room').value;
 
 const view = {
   add(data) {
     let buzzSound = new Audio(`${window.location.origin}/ding.wav`);
-    if (Math.random() > 0.99) {
-      buzzSound = new Audio(`${window.location.origin}/ahh.wav`);
-    }
     buzzSound.play();
     const payload = `<tr>
       <td>${data.teamName}</td>
@@ -39,6 +37,7 @@ const app = Lucia.createApp(view);
 app.mount('#app');
 
 socket.on('server-buzz', (data) => {
+  if (data.room !== room) return;
   if (!(`@@@${data.teamName}` in scores)) {
     scores[`@@@${data.teamName}`] = 0;
   }
@@ -71,7 +70,7 @@ function change() {
 function correct(teamName) {
   entries = [];
   if (!(`@@@${teamName}` in scores)) scores[`@@@${teamName}`] = 0;
-  socket.emit('client-score', { teamName, score: ++scores[`@@@${teamName}`] });
+  socket.emit('client-score', { teamName, score: ++scores[`@@@${teamName}`], room });
   updateScores();
   change();
   stopTimer();
@@ -88,7 +87,7 @@ function updateTimer() {
 
 async function startTimer(name) {
   if (timerLock) return;
-  socket.emit('client-score', { teamName: name, score: scores[`@@@${name}`] });
+  socket.emit('client-score', { teamName: name, score: scores[`@@@${name}`], room });
   timerLock = true;
   resetTimer();
   await delay(500);
@@ -101,8 +100,6 @@ async function startTimer(name) {
     timer--;
     updateTimer();
   }
-  let buzzSound = new Audio(`${window.location.origin}/buzz.wav`);
-  buzzSound.play();
   timer = -1;
   timerLock = false;
   change();

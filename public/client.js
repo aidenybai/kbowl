@@ -2,6 +2,8 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+let room = document.getElementById('room').value;
+
 const socket = io();
 
 const view = {
@@ -17,11 +19,8 @@ const view = {
       return alert('Team length too long! Max 25');
     this.teamName = this.teamName.trim();
     let buzzSound = new Audio(`${window.location.origin}/ding.wav`);
-    if (Math.random() > 0.99) {
-      buzzSound = new Audio(`${window.location.origin}/ahh.wav`);
-    }
     buzzSound.play();
-    socket.emit('client-buzz', { teamName: this.teamName });
+    socket.emit('client-buzz', { teamName: this.teamName, room });
 
     this.buzzed = true;
     this.seconds = 3;
@@ -38,6 +37,7 @@ const app = Lucia.createApp(view);
 app.mount('#app');
 
 socket.on('server-score', (data) => {
+  if (data.room !== room) return;
   if (data.teamName === app.$view.teamName) {
     app.$view.score = `Score: ${data.score}`;
   }

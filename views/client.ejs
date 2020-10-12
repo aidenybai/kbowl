@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+    <link
+      rel="stylesheet"
+      href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+
+    <title>Room <%= room %></title>
+  </head>
+  <body>
+    <div id="app">
+      <input value="<%= room %>" id="room" disabled>
+      <h1 *html="score" class="text-center"></h1>
+      <input
+        *model="teamName"
+        type="text"
+        id="text"
+        name="team-name"
+        placeholder="Enter team name"
+        class="text-center"
+      />
+
+      <button
+        *on:click="buzz()"
+        *bind:disabled="buzzed"
+        class="buzzer w-100"
+        *html="!buzzed ? `${buzzerIcon} BUZZ` : `Please wait ${seconds} seconds`"
+      ></button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+    <script src="https://unpkg.com/lucia"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>
