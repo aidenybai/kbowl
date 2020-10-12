@@ -29,7 +29,7 @@ app.use(compression());
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-  res.render('index', { room: makeid(4) });
+  res.render('index');
 });
 
 app.get('/:room', (req, res) => {
@@ -43,14 +43,3 @@ app.post('/:room', (req, res) => {
 server.listen(process.env.PORT, () => {
   console.log(`Running on port ${process.env.PORT}`);
 });
-
-const makeid = (length) => {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-
-  return text;
-};
