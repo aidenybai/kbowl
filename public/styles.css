@@ -104,3 +104,18 @@ input {
 .text-center {
   text-align: center;
 }
+
+.mute {
+  opacity: 0.5;
+}
+
+.bg-white {
+  background: #fff;
+  font-size: 300%
+}
+
+.modal-corner {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+}

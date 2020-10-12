@@ -9,13 +9,21 @@
       href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
     <title>Host | Room Code: <%= room %></title>
   </head>
   <body>
     <div id="app">
-      <input value="<%= room %>" id="room" disabled>
-      <center><h1 id="timer">Waiting for entries...</h1></center>
+      <input type="hidden" value="<%= room %>" id="room" disabled> 
+      <center>
+        <h1 id="timer">Waiting for entries...</h1>
+      </center>
+
+      <button class="text-center modal-corner">Connect to Room Code: 
+        <pre><code class="bg-white"><%= room %></code></pre>
+      </button>
+      
       <details open> 
         <summary>Leaderboard</summary> 
         <table>

@@ -9,14 +9,17 @@
       href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 
     <title>Kbowl</title>
   </head>
   <body>
     <form method="POST" action="/<%= room %>" class="text-center">
-      <h1 *html="score" class="text-center">Kbowl</h1>
+      <h1 class="text-center"><img src="/favicon.png" width="100" /><br> Kbowl</h1>
       <button type="submit" class="correct"><i class="fas fa-plus"></i> Create a room</button>
-      <button type="button" onclick="join()"><i class="fas fa-sign-in-alt"></i> Join a room</button>
+      <button type="button" id="dialog-trigger" onclick="join()">
+        <i class="fas fa-sign-in-alt"></i> Join a room
+      </button>
     </form>
     <hr />
     <details>

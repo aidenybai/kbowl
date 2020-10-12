@@ -9,13 +9,13 @@
       href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
     <title>Room <%= room %></title>
   </head>
   <body>
     <div id="app">
-      <a href="/" class="text-center">Go home</a>
-      <input value="<%= room %>" id="room" disabled>
+      <input type="hidden" value="<%= room %>" id="room" disabled>
       <h1 *html="score" class="text-center"></h1>
       <input
         *model="teamName"
@@ -32,6 +32,7 @@
         class="buzzer w-100"
         *html="!buzzed ? `${buzzerIcon} BUZZ` : `Please wait ${seconds} seconds`"
       ></button>
+      <p class="text-center mute"><i class="fas fa-check"></i> Connected to Room <code><%= room %></code></p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
