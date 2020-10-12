@@ -17,14 +17,14 @@ const view = {
       <td>${data.teamName}</td>
       <td>${new Date().toLocaleTimeString()}</td>
       <td>
-        <button class="correct" onclick="correct('${
+        <button class="correct" onclick="correct('${strip(DOMPurify.sanitize(
           data.teamName
-        }'); this.disabled = true;"><i class="fas fa-check"></i></button> 
-        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('${
+        ))}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
+        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('${strip(DOMPurify.sanitize(
           data.teamName
-        }'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('${
-          data.teamName
-        }'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
+        ))}'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('${strip(DOMPurify.sanitize(
+      data.teamName
+    ))}'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -56,9 +56,9 @@ function updateScores() {
   );
   for (const team in sortedScores) {
     document.querySelector('#teams').innerHTML += `<tr>
-      <td>${DOMPurify.sanitize(team.replace('@@@', ''))}</td>
-      <td>${DOMPurify.sanitize(scores[team]) || 0}</td>
-      <td><button class="correct" onclick="this.parentNode.parentNode.remove(); deleteTeam('${team}')"><i class="fas fa-trash"></i> Delete</button></td>
+      <td>${strip(DOMPurify.sanitize(team))}</td>
+      <td>${strip(DOMPurify.sanitize(scores[team])) || 0}</td>
+      <td><button class="correct" onclick="this.parentNode.parentNode.remove(); deleteTeam('${strip(DOMPurify.sanitize(team))}')"><i class="fas fa-trash"></i> Delete</button></td>
     </tr>`;
   }
 }
@@ -119,3 +119,12 @@ function resetTimer() {
 window.onbeforeunload = () => {
   return 'Are you sure you want to leave?';
 };
+
+function strip(html) {
+  let temp = document.createElement('div');
+  temp.hidden = true;
+  temp.innerHTML = html;
+  const text = temp.textContent || temp.innerText || '';
+  temp.remove();
+  return text.replace('@@@', '') || 'Error When Rendering';
+}
