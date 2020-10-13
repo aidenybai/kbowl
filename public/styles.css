@@ -12,8 +12,8 @@ body {
   --text-main: #363636;
   --text-bright: #000;
   --text-muted: #70777f;
-  --links: rgba(255, 0, 0, 0.5);
-  --focus: rgba(255, 0, 0, 0.5);
+  --links: #f53b51d7;
+  --focus: #f53b51d7;
   --border: #dbdbdb;
   --code: #000;
   --animation-duration: 0.1s;
@@ -22,8 +22,8 @@ body {
   --scrollbar-thumb-hover: color-mod(var(--button-hover) lightness(-10%));
   --form-placeholder: #949494;
   --form-text: #000;
-  --variable: rgba(255, 0, 0, 0.5);
-  --highlight: rgba(255, 0, 0, 0.5);
+  --variable: #f53b51d7;
+  --highlight: #f53b51d7;
   --select-arrow: svg-load('./assets/select-arrow.svg', fill: #161f27);
 }
 
