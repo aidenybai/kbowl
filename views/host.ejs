@@ -13,16 +13,15 @@
 
     <title>Host | Room Code: <%= room %></title>
   </head>
-  <body>
+  <body class="w-100">
+    <button class="text-center modal-right">Connect to Room Code: 
+      <pre><code class="bg-white"><%= room %></code></pre>
+    </button>
+    <button class="text-center modal-left">Timer:
+      <pre><code class="bg-white" id="timer">...</code></pre>
+    </button>
     <div id="app">
       <input type="hidden" value="<%= room %>" id="room" disabled> 
-      <center>
-        <h1 id="timer">Waiting for entries...</h1>
-      </center>
-
-      <button class="text-center modal-corner">Connect to Room Code: 
-        <pre><code class="bg-white"><%= room %></code></pre>
-      </button>
       
       <details open> 
         <summary>Leaderboard</summary> 
@@ -55,7 +54,7 @@
         </table>
       </details>
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.1.1/purify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
     <script src="https://unpkg.com/lucia"></script>

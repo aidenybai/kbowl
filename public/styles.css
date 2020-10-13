@@ -114,8 +114,14 @@ input {
   font-size: 300%
 }
 
-.modal-corner {
+.modal-right {
   position: fixed;
   top: 15px;
   right: 15px;
+}
+
+.modal-left {
+  position: fixed;
+  top: 15px;
+  left: 15px;
 }

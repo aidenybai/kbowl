@@ -17,14 +17,14 @@ const view = {
       <td>${data.teamName}</td>
       <td>${new Date().toLocaleTimeString()}</td>
       <td>
-        <button class="correct" onclick="correct('${strip(DOMPurify.sanitize(
-          data.teamName
-        ))}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
-        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('${strip(DOMPurify.sanitize(
-          data.teamName
-        ))}'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('${strip(DOMPurify.sanitize(
-      data.teamName
-    ))}'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
+        <button class="correct" onclick="correct('${strip(
+          DOMPurify.sanitize(data.teamName)
+        )}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
+        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team === '${strip(
+          DOMPurify.sanitize(data.teamName)
+        )}')) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team === '${strip(
+      DOMPurify.sanitize(data.teamName)
+    )}')), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -58,7 +58,9 @@ function updateScores() {
     document.querySelector('#teams').innerHTML += `<tr>
       <td>${strip(DOMPurify.sanitize(team))}</td>
       <td>${DOMPurify.sanitize(scores[team]) || 0}</td>
-      <td><button class="correct" onclick="this.parentNode.parentNode.remove(); deleteTeam('${strip(DOMPurify.sanitize(team))}')"><i class="fas fa-trash"></i> Delete</button></td>
+      <td><button class="correct" onclick="this.parentNode.parentNode.remove(); deleteTeam('${strip(
+        DOMPurify.sanitize(team)
+      )}'); deleteTeam('${team}')"><i class="fas fa-trash"></i> Delete</button></td>
     </tr>`;
   }
 }
@@ -81,8 +83,7 @@ function deleteTeam(team) {
 }
 
 function updateTimer() {
-  document.querySelector('#timer').innerHTML =
-    timer < 0 ? 'Waiting for entries...' : `Time: ${timer} s`;
+  document.querySelector('#timer').innerHTML = timer < 0 ? '...' : `${timer}s`;
 }
 
 async function startTimer(name) {
