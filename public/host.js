@@ -57,7 +57,7 @@ function updateScores() {
   for (const team in sortedScores) {
     document.querySelector('#teams').innerHTML += `<tr>
       <td>${strip(DOMPurify.sanitize(team))}</td>
-      <td>${strip(DOMPurify.sanitize(scores[team])) || 0}</td>
+      <td>${DOMPurify.sanitize(scores[team]) || 0}</td>
       <td><button class="correct" onclick="this.parentNode.parentNode.remove(); deleteTeam('${strip(DOMPurify.sanitize(team))}')"><i class="fas fa-trash"></i> Delete</button></td>
     </tr>`;
   }
