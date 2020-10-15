@@ -14,15 +14,10 @@
     <title>Host | Room Code: <%= room %></title>
   </head>
   <body class="w-100">
-    <button class="text-center modal-right">Connect to Room Code: 
-      <pre><code class="bg-white"><%= room %></code></pre>
-    </button>
-    <button class="text-center modal-left">Timer:
-      <pre><code class="bg-white" id="timer">...</code></pre>
-    </button>
     <div id="app">
       <input type="hidden" value="<%= room %>" id="room" disabled> 
       
+      <h1 class="text-center">Connect to Room Code: <code><%= room %></code></h1>
       <details open> 
         <summary>Leaderboard</summary> 
         <table>
@@ -38,6 +33,7 @@
           </tbody>
         </table> 
       </details>
+      <h1 class="text-center">Time: <span id="timer">...</span></h1>
       <details open> 
         <summary>Entries</summary> 
         <table>
