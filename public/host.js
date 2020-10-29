@@ -20,11 +20,11 @@ const view = {
         <button class="correct" onclick="correct('${strip(
           DOMPurify.sanitize(data.teamName)
         )}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
-        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team === '${strip(
+        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('<td>${strip(
           DOMPurify.sanitize(data.teamName)
-        )}')) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team === '${strip(
-      DOMPurify.sanitize(data.teamName)
-    )}')), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
+        )}</td>'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('<td>${strip(
+          DOMPurify.sanitize(data.teamName)
+        )}</td>'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
