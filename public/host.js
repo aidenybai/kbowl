@@ -12,19 +12,16 @@ let room = document.getElementById('room').value;
 const view = {
   add(data) {
     let buzzSound = new Audio(`${window.location.origin}/ding.wav`);
+    const [teamName, ping] = strip(DOMPurify.sanitize(data.teamName)).split('|||');
+    const pingNum = Date.now() - parseInt(ping);
+
     buzzSound.play();
     const payload = `<tr>
-      <td>${data.teamName}</td>
+      <td title="${pingNum < 0 ? 'null ' : pingNum} ms">${teamName}</td>
       <td>${new Date().toLocaleTimeString()}</td>
       <td>
-        <button class="correct" onclick="correct('${strip(
-          DOMPurify.sanitize(data.teamName)
-        )}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
-        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('<td>${strip(
-          DOMPurify.sanitize(data.teamName)
-        )}</td>'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('<td>${strip(
-          DOMPurify.sanitize(data.teamName)
-        )}</td>'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
+        <button class="correct" onclick="correct('${teamName}'); this.disabled = true;"><i class="fas fa-check"></i></button> 
+        <button onclick="this.parentNode.parentNode.remove(); if (entries.indexOf(entries.find(team => team.includes('<td>${teamName}</td>'))) === 0) { resetTimer(); startTimer(entries[0]); }; entries.splice(entries.indexOf(entries.find(team => team.includes('<td>${teamName}</td>'))), 1); this.disabled = true;"><i class="fas fa-times"></i></button>
       </td>
     </tr>`;
     if (entries.includes(payload)) return;
@@ -38,13 +35,13 @@ app.mount('#app');
 
 socket.on('server-buzz', (data) => {
   if (data.room !== room) return;
-  if (!(`@@@${data.teamName}` in scores)) {
-    scores[`@@@${data.teamName}`] = 0;
+  if (!(`@@@${data.teamName.split('|||')[0]}` in scores)) {
+    scores[`@@@${data.teamName.split('|||')[0]}`] = 0;
   }
-  if (entries.find((team) => team.includes(data.teamName))) return;
+  if (entries.find((team) => team.includes(data.teamName.split('|||')[0]))) return;
 
   app.$view.add(data);
-  if (entries.length <= 1) startTimer(data.teamName);
+  if (entries.length <= 1) startTimer(data.teamName.split('|||')[0]);
 
   updateScores();
 });
@@ -72,7 +69,7 @@ function change() {
 function correct(teamName) {
   entries = [];
   if (!(`@@@${teamName}` in scores)) scores[`@@@${teamName}`] = 0;
-  socket.emit('client-score', { teamName, score: ++scores[`@@@${teamName}`], room });
+  socket.emit('client-score', { teamName: `${teamName}|||${Date.now()}`, score: ++scores[`@@@${teamName}`], room });
   updateScores();
   change();
   stopTimer();
@@ -88,7 +85,7 @@ function updateTimer() {
 
 async function startTimer(name) {
   if (timerLock) return;
-  socket.emit('client-score', { teamName: name, score: scores[`@@@${name}`], room });
+  socket.emit('client-score', { teamName: `${name}|||${Date.now()}`, score: scores[`@@@${name}`], room });
   timerLock = true;
   resetTimer();
   await delay(500);
