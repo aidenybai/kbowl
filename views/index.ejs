@@ -15,24 +15,23 @@
   </head>
   <body>
     <div l-use="App">
-      <form method="POST" class="text-center" l-bind:action="makeid(5)">
+      <form method="POST" class="text-center" l-bind:action="this.makeid(5)">
         <h1 class="text-center">
           <img src="/favicon.png" width="100" /><br />
           Kbowl
         </h1>
         <button type="submit" class="correct"><i class="fas fa-plus"></i> Create a room</button>
-        <button type="button" id="dialog-trigger" l-on:click="join()" >
+        <button type="button" id="dialog-trigger" l-on:click="this.join()">
           <i class="fas fa-sign-in-alt"></i> Join a room
         </button>
       </form>
       <hr />
-      <details>
-        <summary>What is this?</summary>
-        Kbowl is a virtual web application for hosting verbal sessions for knowledge bowl. Kbowl is
-        best paired with Zoom for the host to screencast their screen and for the participants to
-        watch. You can also have your teams use Discord Voice Channels to communicate privately
-        interteam.
-      </details>
+      <Collapsable
+        l-bind="'What is this?', `Kbowl is a virtual web application for hosting verbal sessions for knowledge bowl. Kbowl is
+      best paired with Zoom for the host to screencast their screen and for the participants to
+      watch. You can also have your teams use Discord Voice Channels to communicate privately
+      interteam.`"
+      ></Collapsable>
       <details>
         <summary>Who works on this?</summary>
         Kbowl is developed by Aiden Bai <code>aiden (dot) bai 05 (at) gmail (dot) com</code> of CHS.
@@ -47,9 +46,20 @@
         a vuln, don't be a jerk and ruin everyone's time, either contribute through the Github or
         just don't break it.
       </details>
+      <hr>
+      <center>
+        <br><br>
+        <h3>Want to support the developer?</h3>
+        <a href="https://bank.hackclub.com/donations/start/lucia" target="_blank"><button class="correct"><i class="fas fa-heart"></i> Donate</button></a>
+        <br><br><br>
+      </center>
+      <hr>
+      <center>
+        <small>© 2020-present Aiden Bai</small>
+      </center>
     </div>
 
-    <script src="https://unpkg.com/lucia@0.2.1"></script>
+    <script src="https://unpkg.com/lucia@0.3.1/dist/lucia.js"></script>
     <script src="/index.js"></script>
   </body>
 </html>
